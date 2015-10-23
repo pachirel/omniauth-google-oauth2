@@ -22,6 +22,11 @@ module OmniAuth
         :token_url     => '/o/oauth2/token'
       }
 
+      # Fix callback url has query string, '?state=xxx&code=yyy'
+      def callback_url
+        full_host + script_name + callback_path
+      end
+
       def authorize_params
         super.tap do |params|
           options[:authorize_options].each do |k|
